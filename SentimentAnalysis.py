@@ -122,8 +122,7 @@ def analyze_playlist(playlist_id):
     print("Number of errors:", error_count)
     return (average_polarity, average_subjectivity)
 
-def analyze_playlist_average(playlist_id):
-    num_trials = 50
+def analyze_playlist_average(playlist_id, num_trials):
     polarity_sum = 0
     subjectivity_sum = 0
     for i in range(num_trials):
@@ -138,7 +137,7 @@ def analyze_playlist_average(playlist_id):
 
 # Playlist URL for global top songs of 2022
 # top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
-# # analyze_playlist_average(top_2022)
+# # analyze_playlist_average(top_2022, 50)
 # analyze_playlist(top_2022)
 
 # sent = analyze_lyrics("We'll Be Coming Back", "Calvin Harris")
