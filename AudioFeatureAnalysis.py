@@ -1,6 +1,7 @@
 # import random
 # import time
 import pandas as pd
+import json
 import spotipy
 import spotipy.oauth2 as oauth2
 # from spotipy_random import get_random
@@ -26,21 +27,38 @@ spotify = spotipy.Spotify(client_credentials_manager=credentials)
 
 def get_playlist_audio_features(playlist_id):
     playlist_data = []
+    sum_features = {}
+    avg_features = {}
+
     tracks = spotify.playlist_tracks(playlist_id)
     for track in tracks['items']:
         track_name = track['track']['name']
         track_id = track['track']['id']
         artist_name = track['track']['artists'][0]['name']
         audio_features = spotify.audio_features([track_id])[0]
+        numeric_audio_features = {}
+        for key, value in audio_features.items():
+            if isinstance(value, (int, float)):
+                numeric_audio_features[key] = value
         print(f"Adding {track_name} by {artist_name}")
         playlist_data.append({
-                    'playlist_id': playlist_id,
+                    # 'playlist_id': playlist_id,
                     'track_name': track_name,
                     'artist_name': artist_name,
-                    'audio_features': audio_features
+                    'audio_features': numeric_audio_features
                 })
-    print(playlist_data)
-    return pd.DataFrame(playlist_data)
 
+        for feature, value in numeric_audio_features.items():
+            sum_features[feature] = sum_features.get(feature, 0) + value
+
+    for feature, value in sum_features.items():
+        avg_features[feature] = value / len(tracks['items'])
+
+    print(pd.DataFrame(playlist_data))
+    print("\n")
+    print(json.dumps(avg_features))
+    return avg_features
+
+print("Starting...")
 top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
 get_playlist_audio_features(top_2022)
