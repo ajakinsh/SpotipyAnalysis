@@ -46,14 +46,10 @@ def analyze_lyrics(song_name, artist_name):
 
 def random_training_set(num_trials):
     analyzed_count = 0
+    sentiment_totals = [0, 0]
+    error_count = 0
     for i in range(num_trials):
-
         random_pop_song_json: str = get_random(spotify, type="track")
-
-        polarity_sum = 0
-        subjectivity_sum = 0
-        error_count = 0
-
         # extract the name of the song and the name of the artist from the dictionary
         song_name = random_pop_song_json['name']
         artist_name = random_pop_song_json['artists'][0]['name']
@@ -61,34 +57,29 @@ def random_training_set(num_trials):
         try:
             sentiment = analyze_lyrics(song_name, artist_name)
             if sentiment is not None:
-                polarity_sum += sentiment.polarity
-                subjectivity_sum += sentiment.subjectivity
-                analyzed_count += 1
+                sentiment_totals = (sentiment_totals[0] + sentiment.polarity, sentiment_totals[1] + sentiment.subjectivity)
             else:
                 error_count += 1
         except:
             error_count += 1
 
-        # print the song name and artist name
         print(f'Song {i+1}:')
 
+    analyzed_count = num_trials - error_count
     if analyzed_count > 0:
-        average_polarity = polarity_sum / analyzed_count
-        average_subjectivity = subjectivity_sum / analyzed_count
+        avg_sentiment_scores = [(sentiment_totals[0] / analyzed_count), (sentiment_totals[1] / analyzed_count)]
     else:
-        average_polarity = 0
-        average_subjectivity = 0
+        sentiment_totals = [0, 0]
 
-    print(f'Average Polarity over {num_trials} song test set:', average_polarity)
-    print(f'Average Subjectivity over {num_trials} song test set:', average_subjectivity)
+    avg_sentiment_scores = tuple(avg_sentiment_scores)
+    print("Average sentiment (Polarity, Subjectivity):" , avg_sentiment_scores)
     print("Number of errors:", error_count)
-    return (average_polarity, average_subjectivity)
+    return avg_sentiment_scores
 
 
 def analyze_playlist(playlist_id):
     # Get playlist tracks
     tracks = spotify.playlist_tracks(playlist_id)
-
     # Extract track names
     track_names = [track['track']['name'] for track in tracks['items']]
     track_artists = [track['track']['artists'][0]['name'] for track in tracks['items']]
@@ -128,8 +119,8 @@ def analyze_playlist_average(playlist_id, num_trials):
     for i in range(num_trials):
         print("Running analysis for trial", i+1)
         sentiment = analyze_playlist(playlist_id)
-        polarity_sum += sentiment.polarity
-        subjectivity_sum += sentiment.subjectivity
+        polarity_sum += sentiment[0]
+        subjectivity_sum += sentiment[1]
     average_polarity = polarity_sum / num_trials
     average_subjectivity = subjectivity_sum / num_trials
     print("Average Polarity over 50 trials:", average_polarity)
