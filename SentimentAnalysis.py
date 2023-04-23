@@ -40,6 +40,7 @@ def analyze_lyrics(song_name, artist_name):
         language = detect(lyrics)
         if language != "en":
             blob = blob.translate(from_lang=language, to="en")
+        print(blob.sentiment)
         return blob.sentiment
     except:
         return None
