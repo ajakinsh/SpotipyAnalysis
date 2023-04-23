@@ -30,6 +30,7 @@ def random_training_set(num_trials):
     error_count = 0
 
     for i in range(num_trials):
+        print(f'Song {i+1}:')
         random_pop_song_json: str = get_random(spotify, type="track")
 
         # extract the name of the song and the name of the artist from the dictionary
@@ -46,7 +47,6 @@ def random_training_set(num_trials):
         except:
             error_count += 1
 
-        print(f'Song {i+1}:')
 
     analyzed_count = num_trials - error_count
     if analyzed_count > 0:
