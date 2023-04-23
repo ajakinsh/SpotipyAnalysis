@@ -123,15 +123,15 @@ def analyze_playlist_average(playlist_id, num_trials):
         subjectivity_sum += sentiment[1]
     average_polarity = polarity_sum / num_trials
     average_subjectivity = subjectivity_sum / num_trials
-    print("Average Polarity over 50 trials:", average_polarity)
-    print("Average Subjectivity over 50 trials:", average_subjectivity)
+    print(f"Average Polarity over {num_trials} trials:", average_polarity)
+    print(f"Average Subjectivity over {num_trials} trials:", average_subjectivity)
 
 # Playlist URL for global top songs of 2022
-# top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
-# # analyze_playlist_average(top_2022, 50)
+top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
+analyze_playlist_average(top_2022, 10)
 # analyze_playlist(top_2022)
 
 # sent = analyze_lyrics("We'll Be Coming Back", "Calvin Harris")
 # print(sent)
 
-random_training_set(1000)
+# random_training_set(1000)
