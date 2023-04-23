@@ -81,14 +81,6 @@ def analyze_song_sentiment(song_title, artist_name):
         return None
 
 
-# # Example usage
-# song_titles = ['Shape of You', 'Hello']
-# artist_names = ['Ed Sheeran', 'Adele']
-
-
-#analyze_song_sentiment(song_titles, artist_names)
-
-
 def analyze_playlist_sentiment(playlist_id):
     # Get the tracks from the playlist
     results = spotify.playlist_items(playlist_id)
@@ -142,10 +134,10 @@ def analyze_playlist_average(playlist_id, num_trials):
     print(avg_sentiment_scores)
     return avg_sentiment_scores
 
-# top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
+top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
 # analyze_playlist_sentiment(top_2022)
 
 #average of the average
-# analyze_playlist_average(top_2022, 3)
+analyze_playlist_average(top_2022, 10)
 
-random_training_set(1000)
+# random_training_set(1000)
