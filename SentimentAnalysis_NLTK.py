@@ -1,5 +1,3 @@
-import random
-import time
 import spotipy
 import spotipy.oauth2 as oauth2
 from spotipy_random import get_random
