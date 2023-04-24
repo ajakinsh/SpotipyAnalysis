@@ -1,6 +1,9 @@
+import re as regex
 import spotipy
 import spotipy.oauth2 as oauth2
 import lyricsgenius
+from textblob import TextBlob
+from langdetect import detect
 
 # Set up API credentials for Spotify and Genius
 SPOTIFY_CLIENT_ID = '6695d089e5ac49379246228bcec06b2f'
@@ -13,36 +16,47 @@ credentials = oauth2.SpotifyClientCredentials(
         client_secret=SPOTIFY_CLIENT_SECRET)
 
 # Create a Spotify API instance
-spotify = spotipy.Spotify(client_credentials_manager=credentials)
+sp = spotipy.Spotify(client_credentials_manager=credentials)
 
 # Create a Genius API instance; Timeout increased to 20 seconds from default 5 sec (too short)
 genius = lyricsgenius.Genius(GENIUS_CLIENT_ACCESS_TOKEN, timeout=20)
 
-# Get the top 50 tracks from the user's Spotify library
-results = sp.current_user_saved_tracks(limit=50)
-tracks = [item['track'] for item in results['items']]
+# Define a function to get the lexical diversity of a song
+def get_song_lexical_diversity(song_title, artist_name):
+    try:
+        # Get the lyrics for the song from the Genius API
+        song = genius.search_song(song_title, artist_name)
+        lyrics = song.lyrics
+        blob = TextBlob(lyrics)
+        language = detect(lyrics)
+        if language != "en":
+            blob = blob.translate(from_lang=language, to="en")
+            lyrics = str(blob)
 
-# Define a function to get the lyrical diversity of a song
-def get_lyrical_diversity(track):
-    # Get the lyrics for the song from the Genius API
-    song = genius.search_song(track['name'], track['artists'][0]['name'])
-    if song is None:
+        print("LYRICS BEFORE PROCESSING:\n", lyrics)
+
+        lyrics = lyrics.splitlines()[1:]  # skip the first line (song and contributor info)
+        lyrics = "\n".join(lyrics) # put back into string
+
+        # Define a regular expression to match bracketed text that genius puts in lyrics
+        # For example the label of [Chorus] or [Pre-Chorus]
+        bracketed_text_re = r'\[.*?\]'
+        # Remove the bracketed text from the lyrics by replacing with empty string
+        lyrics = regex.sub(bracketed_text_re, '', lyrics)
+
+        # Calculate the lexical diversity of the song
+        words = lyrics.split()
+        unique_words = set(words)
+        print("LYRICS AFTER PROCESSING:\n", lyrics)
+
+        print("Unique words: ", unique_words)
+
+        lexical_diversity = len(unique_words) / len(words)
+
+        print(f"Lexical diversity of {song_title} by {artist_name}:")
+        print(f"{len(unique_words)} unique words / {len(words)} total words = {lexical_diversity}")
+        return lexical_diversity
+    except:
         return None
-    lyrics = song.lyrics
-    # Calculate the lyrical diversity of the song
-    words = lyrics.split()
-    unique_words = set(words)
-    return len(unique_words) / len(words)
 
-# Calculate the average lyrical diversity of the 50 songs
-total_lyrical_diversity = 0
-count = 0
-for track in tracks:
-    lyrical_diversity = get_lyrical_diversity(track)
-    if lyrical_diversity is not None:
-        total_lyrical_diversity += lyrical_diversity
-        count += 1
-average_lyrical_diversity = total_lyrical_diversity / count
-
-# Print the average lyrical diversity
-print(f"The average lyrical diversity of the top 50 tracks in your library is {average_lyrical_diversity:.2f}")
+get_song_lexical_diversity("Deify", "Disturbed")
