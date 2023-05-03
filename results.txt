@@ -1,0 +1,305 @@
+NLTK Average sentiment over 1000 random songs:
+    {'neg': 0.11282238193018485, 'neu': 0.737564681724846, 'pos': 0.1495831622176589, 'compound': 0.27343880903490797}
+
+TextBlob Average sentiment over 1000 random songs:
+    Average sentiment (Polarity, Subjectivity) over 1000 random songs:
+    (0.0903963810360826, 0.5012086035550175)
+    Number of errors: 20
+
+NLTK Top 50 global songs sentiment over 10 trials:
+    Average playlist sentiment scores over 10 trials:
+    {'neg': 0.08735416666666664, 'neu': 0.7506458333333336, 'pos': 0.1620625, 'compound': 0.5075500000000001}
+
+TextBlob Top 50 global songs sentiment over 10 trials:
+    Average Polarity over 10 trials: 0.12605458517769458
+    Average Subjectivity over 10 trials: 0.5243961464170007
+
+Average audio features Top 50 global songs:
+    {"danceability": 0.6884599999999998, "energy": 0.6727799999999999, "key": 5.38,
+    "loudness": -5.788360000000001, "mode": 0.48, "speechiness": 0.06912, "acousticness": 0.2366532,
+    "instrumentalness": 0.0013933367999999998, "liveness": 0.17881599999999995,
+    "valence": 0.49279600000000007, "tempo": 120.62176000000004,
+    "duration_ms": 203008.04, "time_signature": 3.92}
+
+Lexical Diversity Top 50 global songs:
+    Average lexical diversity for playlist: 0.3463786736909483
+    30 most common words in the playlist:
+    you             47
+    i               47
+    the             46
+    to              45
+    and             45
+    in              44
+    like            43
+    it              42
+    me              42
+    a               42
+    that            39
+    might           38
+    but             37
+    my              37
+    know            36
+    also            36
+    i'm             35
+    don't           33
+    of              33
+    your            32
+    on              31
+    is              31
+    what            30
+    for             30
+    it's            29
+    baby            29
+    when            28
+    so              28
+    be              27
+    no              27
+    Number of errors: 3
+
+Kpop NLTK
+    Average playlist sentiment scores over 10 trials:
+    {'neg': 0.062586, 'neu': 0.753846, 'pos': 0.18353400000000003, 'compound': 0.7318936}
+
+Kpop TextBlob
+    Average Polarity over 10 trials: 0.1292944260877334
+    Average Subjectivity over 10 trials: 0.5179781840300153
+
+Kpop Audio features
+    {"danceability": 0.6888399999999999, "energy": 0.7504000000000001, "key": 4.58,
+    "loudness": -4.496159999999999, "mode": 0.6, "speechiness": 0.10891799999999996,
+    "acousticness": 0.1334798, "instrumentalness": 0.00017295340000000002,
+    "liveness": 0.17900999999999997, "valence": 0.5784800000000001, "tempo": 123.09098,
+    "duration_ms": 194101.42, "time_signature": 3.96}
+
+Kpop Lexical
+    Average lexical diversity for playlist: 0.4296676342424161
+    30 most common words in the playlist:
+    you             49
+    like            49
+    might           46
+    also            45
+    i               44
+    me              38
+    it              36
+    the             34
+    yeah            34
+    내              34
+    a               32
+    my              30
+    and             28
+    oh              27
+    on              27
+    to              26
+    i'm             26
+    더              26
+    in              25
+    so              23
+    up              23
+    that            23
+    난              23
+    be              21
+    what            21
+    it's            21
+    we              20
+    get             20
+    all             20
+    love            20
+    Number of errors: 0
+
+Jpop NLTK
+    Average playlist sentiment scores over 10 trials:
+    {'neg': 0.09962505479818232, 'neu': 0.7331234825542087, 'pos': 0.16731974841580582, 'compound': 0.47882593954117336}
+
+Jpop TextBlob
+    Average Polarity over 10 trials: 0.11060780045360388
+    Average Subjectivity over 10 trials: 0.5348451511718142
+
+Jpop Audio features
+    {"danceability": 0.611211111111111, "energy": 0.7202555555555558, "key": 4.6,
+    "loudness": -5.259088888888889, "mode": 0.7888888888888889,
+    "speechiness": 0.05510111111111111, "acousticness": 0.1914156277777778,
+    "instrumentalness": 0.0009279905555555558, "liveness": 0.18094555555555558,
+    "valence": 0.6084777777777778, "tempo": 123.91920000000003,
+    "duration_ms": 240563.27777777778, "time_signature": 3.966666666666667}
+
+Jpop Lexical
+    Average lexical diversity for playlist: 0.4852334172122476
+    30 most common words in the playlist:
+    you             86
+    might           85
+    also            85
+    the             84
+    a               83
+    to              82
+    is              80
+    i               79
+    of              79
+    like            78
+    it              77
+    and             73
+    that            72
+    with            68
+    in              66
+    don't           63
+    if              62
+    want            61
+    i'm             60
+    be              59
+    not             59
+    my              58
+    it's            57
+    are             56
+    your            52
+    at              51
+    can't           49
+    me              47
+    will            47
+    on              47
+    Number of errors: 4
+
+Country NLTK
+    Average playlist sentiment scores over 10 trials:
+    {'neg': 0.06460606060606058, 'neu': 0.7783232323232322, 'pos': 0.15704040404040406, 'compound': 0.6236969696969699}
+
+Country TextBlob
+    Average Polarity over 10 trials: 0.12382253452036404
+    Average Subjectivity over 10 trials: 0.4705475165951724
+
+Country Audio features
+    {"danceability": 0.59439, "energy": 0.574738, "key": 5.07, "loudness": -8.860750000000003,
+    "mode": 0.97, "speechiness": 0.04185200000000002, "acousticness": 0.3576931,
+    "instrumentalness": 0.00039996269999999993, "liveness": 0.170376, "valence": 0.5864299999999998,
+    "tempo": 121.97027000000007, "duration_ms": 211175.43, "time_signature": 3.9}
+
+Country Lexical
+    Average lexical diversity for playlist: 0.4042205940171404
+    30 most common words in the playlist:
+    the             98
+    and             96
+    to              95
+    i               91
+    you             91
+    a               89
+    in              85
+    me              84
+    of              81
+    like            81
+    on              79
+    my              75
+    that            73
+    it              72
+    your            66
+    just            65
+    but             65
+    all             65
+    when            63
+    be              62
+    might           60
+    for             59
+    up              57
+    with            57
+    don't           55
+    also            54
+    down            53
+    so              53
+    love            53
+    know            53
+    Number of errors: 1
+
+Metal NLTK
+    Average playlist sentiment scores over 10 trials:
+    {'neg': 0.15404255319148946, 'neu': 0.7374574468085109, 'pos': 0.10848936170212767, 'compound': -0.307877659574468}
+
+Metal TextBlob
+    Average Polarity over 10 trials: -0.01709660180116735
+    Average Subjectivity over 10 trials: 0.5043630524234287
+
+Metal Audio features
+    {"danceability": 0.45322, "energy": 0.9181600000000002, "key": 5.39, "loudness": -4.5482499999999995,
+    "mode": 0.59, "speechiness": 0.09430900000000002, "acousticness": 0.0023842337999999998,
+    "instrumentalness": 0.06243406070000001, "liveness": 0.27050799999999986, "valence": 0.347174,
+    "tempo": 127.13610000000003, "duration_ms": 233083.86, "time_signature": 3.91}
+
+Metal Lexical
+    Average lexical diversity for playlist: 0.3726560957435292
+    30 most common words in the playlist:
+    the             92
+    to              90
+    and             87
+    you             86
+    a               82
+    in              80
+    i               79
+    of              79
+    like            79
+    it              75
+    is              70
+    might           70
+    me              68
+    also            68
+    my              66
+    all             65
+    that            65
+    this            62
+    for             60
+    on              60
+    i'm             55
+    with            51
+    it's            51
+    out             49
+    your            48
+    but             47
+    be              47
+    so              47
+    never           43
+    up              42
+    Number of errors: 6
+
+Rock NLTK
+    Average playlist sentiment scores over 10 trials:
+    {'neg': 0.087989010989011, 'neu': 0.774857142857143, 'pos': 0.13716483516483516, 'compound': 0.4108527472527471}
+
+Rock TextBlob
+    Average Polarity over 10 trials: 0.07895397598915375
+    Average Subjectivity over 10 trials: 0.46633542588026466
+
+Rock Audio features
+    {"danceability": 0.5409299999999999, "energy": 0.7406000000000003, "key": 5.34,
+    "loudness": -7.8462700000000005, "mode": 0.77, "speechiness": 0.062402000000000006,
+    "acousticness": 0.129916058, "instrumentalness": 0.0561573407, "liveness": 0.17622200000000002,
+    "valence": 0.5910600000000003, "tempo": 124.83383000000008, "duration_ms": 264788.64, "time_signature": 3.92}
+
+Rock Lexical
+    Average lexical diversity for playlist: 0.39070081097603093
+    30 most common words in the playlist:
+    the             88
+    to              87
+    you             86
+    i               85
+    a               83
+    and             81
+    in              77
+    me              72
+    like            72
+    my              71
+    it              70
+    of              66
+    on              65
+    your            62
+    might           58
+    all             58
+    for             57
+    that            57
+    also            55
+    with            55
+    don't           54
+    be              54
+    just            53
+    if              52
+    is              52
+    so              51
+    we              51
+    it's            50
+    down            49
+    when            49
+    Number of errors: 9

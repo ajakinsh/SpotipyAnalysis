@@ -159,7 +159,7 @@ def analyze_playlist_sentiment(playlist_id):
     print(f"Average playlist sentiment:\n {avg_sentiment_scores}")
     return avg_sentiment_scores
 
-def analyze_playlist_average(playlist_id, num_trials):
+def analyze_playlist_average(playlist_id, num_trials=10):
     sentiment_totals = {'neg': 0, 'neu': 0, 'pos': 0, 'compound': 0}
     for i in range(num_trials):
         print("Running analysis for trial", i+1)
@@ -167,14 +167,26 @@ def analyze_playlist_average(playlist_id, num_trials):
         for category in sentiment:
             sentiment_totals[category] += sentiment[category]
     avg_sentiment_scores = {category: sentiment_totals[category] / num_trials for category in sentiment_totals}
-    print(f"Average playlist sentiment scores over {num_trials} trials:\n {avg_sentiment_scores}")
+    print(f"\nAverage playlist sentiment scores over {num_trials} trials:\n {avg_sentiment_scores}")
     return avg_sentiment_scores
 
 if __name__ == '__main__':
     top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
-    analyze_playlist_sentiment(top_2022)
+    kpop = "https://open.spotify.com/playlist/37i9dQZF1DX9Ja3hVYaZeE?si=7dx1SdAzQFuOPPHxdX2Utw&nd=1"
+    jpop = "https://open.spotify.com/playlist/37i9dQZF1DXdbRLJPSmnyq"
+    country = "https://open.spotify.com/playlist/37i9dQZF1DWZBCPUIUs2iR?si=yigwgjIMTWSzplH3lNd27A&nd=1"
+    metal = "https://open.spotify.com/playlist/37i9dQZF1DX5FZ0gGkvIRf"
+    rock = "https://open.spotify.com/playlist/37i9dQZF1DWXRqgorJj26U"
+
+    # analyze_song_sentiment("Uptown Girl", "Billy Joel")
+    # analyze_playlist_sentiment(top_2022)
 
     # average of the average
-    # analyze_playlist_average(top_2022, 10)
+    # analyze_playlist_average(top_2022)
+    # analyze_playlist_average(kpop)
+    # analyze_playlist_average(jpop)
+    # analyze_playlist_average(country)
+    # analyze_playlist_average(metal)
+    analyze_playlist_average(rock)
 
     # random_training_set(1000)

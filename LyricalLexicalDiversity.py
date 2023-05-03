@@ -138,4 +138,17 @@ def get_playlist_lexical_diversity(playlist_id, most_common_count=20, print_word
 if __name__ == '__main__':
     # get_song_lexical_diversity("Clocks", "Coldplay", most_common_count=20, print_words=False)
     top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
-    get_playlist_lexical_diversity(top_2022, most_common_count=30, print_words_each_song=False)
+    kpop = "https://open.spotify.com/playlist/37i9dQZF1DX9Ja3hVYaZeE?si=7dx1SdAzQFuOPPHxdX2Utw&nd=1"
+    jpop = "https://open.spotify.com/playlist/37i9dQZF1DXdbRLJPSmnyq"
+    country = "https://open.spotify.com/playlist/37i9dQZF1DWZBCPUIUs2iR?si=yigwgjIMTWSzplH3lNd27A&nd=1"
+    metal = "https://open.spotify.com/playlist/37i9dQZF1DX5FZ0gGkvIRf"
+    rock = "https://open.spotify.com/playlist/37i9dQZF1DWXRqgorJj26U"
+
+
+    # get_playlist_lexical_diversity(top_2022, most_common_count=30, print_words_each_song=False)
+    # get_playlist_lexical_diversity(kpop, most_common_count=30, print_words_each_song=False)
+    # get_playlist_lexical_diversity(jpop, most_common_count=30, print_words_each_song=False)
+    # get_playlist_lexical_diversity(country, most_common_count=30, print_words_each_song=False)
+    # get_playlist_lexical_diversity(metal, most_common_count=30, print_words_each_song=False)
+    get_playlist_lexical_diversity(rock, most_common_count=30, print_words_each_song=False)
+

@@ -158,10 +158,19 @@ def analyze_playlist_average(playlist_id, num_trials=10):
 if __name__ == '__main__':
     # Playlist URL for global top songs of 2022
     top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
-    analyze_playlist_average(top_2022, 10)
-    # analyze_playlist(top_2022)
+    kpop = "https://open.spotify.com/playlist/37i9dQZF1DX9Ja3hVYaZeE?si=7dx1SdAzQFuOPPHxdX2Utw&nd=1"
+    jpop = "https://open.spotify.com/playlist/37i9dQZF1DXdbRLJPSmnyq"
+    country = "https://open.spotify.com/playlist/37i9dQZF1DWZBCPUIUs2iR?si=yigwgjIMTWSzplH3lNd27A&nd=1"
+    metal = "https://open.spotify.com/playlist/37i9dQZF1DX5FZ0gGkvIRf"
+    rock = "https://open.spotify.com/playlist/37i9dQZF1DWXRqgorJj26U"
 
-    # sent = analyze_lyrics("We'll Be Coming Back", "Calvin Harris")
-    # print(sent)
+    # analyze_playlist_average(top_2022, 10)
+    # analyze_playlist_average(kpop, 10)
+    # analyze_playlist_average(jpop, 10)
+    # analyze_playlist_average(country, 10)
+    # analyze_playlist_average(metal, 10)
+    analyze_playlist_average(rock, 10)
+
+    # analyze_lyrics("We'll Be Coming Back", "Calvin Harris")
 
     # random_training_set(1000)

@@ -52,4 +52,17 @@ def get_playlist_audio_features(playlist_id):
 if __name__ == '__main__':
     print("Starting...")
     top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
-    get_playlist_audio_features(top_2022)
+    kpop = "https://open.spotify.com/playlist/37i9dQZF1DX9Ja3hVYaZeE?si=7dx1SdAzQFuOPPHxdX2Utw&nd=1"
+    jpop = "https://open.spotify.com/playlist/37i9dQZF1DXdbRLJPSmnyq"
+    country = "https://open.spotify.com/playlist/37i9dQZF1DWZBCPUIUs2iR?si=yigwgjIMTWSzplH3lNd27A&nd=1"
+    metal = "https://open.spotify.com/playlist/37i9dQZF1DX5FZ0gGkvIRf"
+    rock = "https://open.spotify.com/playlist/37i9dQZF1DWXRqgorJj26U"
+
+
+
+    # get_playlist_audio_features(top_2022)
+    # get_playlist_audio_features(kpop)
+    # get_playlist_audio_features(jpop)
+    # get_playlist_audio_features(country)
+    # get_playlist_audio_features(metal)
+    get_playlist_audio_features(rock)
