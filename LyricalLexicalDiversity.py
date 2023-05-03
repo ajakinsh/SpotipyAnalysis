@@ -34,7 +34,8 @@ def get_lyrics(song_name, artist_name, print_lyrics=False):
             blob = blob.translate(from_lang=language, to="en")
             lyrics = str(blob)
 
-        # print("\nLYRICS BEFORE PROCESSING:\n", lyrics)
+        if print_lyrics:
+            print("\nLYRICS BEFORE PROCESSING:\n", lyrics)
         lyrics = lyrics.splitlines()[1:]  # skip the first line (song and contributor info)
         lyrics = "\n".join(lyrics) # put back into string
 

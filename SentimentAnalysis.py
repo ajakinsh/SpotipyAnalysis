@@ -1,12 +1,10 @@
-import random
-import time
+import re as regex
 import spotipy
 import spotipy.oauth2 as oauth2
 from spotipy_random import get_random
 import lyricsgenius
 from textblob import TextBlob
 from langdetect import detect
-
 
 # Set up API credentials for Spotify and Genius
 SPOTIFY_CLIENT_ID = '6695d089e5ac49379246228bcec06b2f'
@@ -25,12 +23,43 @@ spotify = spotipy.Spotify(client_credentials_manager=credentials)
 genius = lyricsgenius.Genius(GENIUS_CLIENT_ACCESS_TOKEN, timeout=20)
 
 # Define a function to retrieve song lyrics from Genius
-def get_lyrics(song_name, artist_name):
+def get_lyrics(song_name, artist_name, print_lyrics=False):
     song = genius.search_song(song_name, artist_name)
     if song is None:
         return None
     else:
-        return song.lyrics
+        lyrics = song.lyrics
+        if print_lyrics:
+            print("\nLYRICS BEFORE PROCESSING:\n", lyrics)
+        lyrics = lyrics.splitlines()[1:]  # skip the first line (song and contributor info)
+        lyrics = "\n".join(lyrics) # put back into string
+
+        # Define regular expressions to match odd text that genius puts in lyrics
+        # Replace with empty string
+        # If search fails, a numbered list of potential songs will be returned
+        # These are not actual lyrics, so we must return None
+        # For example the label of [Chorus] or [Intro]
+        # Some odd lines like "270embed"
+        # Or the following example ad insert:
+        # # "see red hot chili peppers liveget tickets as low as $37you might also like"
+        # Also remove parentheses and curly brackets
+        # Substitute leftover single quotes for spaces
+
+        numbered_list_regex = r'^\d+\. "\w+" - \w+'
+        bracketed_text_regex = r'\[.*?\]'
+        embed_regex = r'(?i)see\s+(.+?)\s+liveget tickets as low as \$(\d+)you might also like|\d+embed'
+        parens_and_curly_brackets_regex = r'[\(\)\{\}]'
+        standalone_quote_regex = r"\b ' \b|\b \" \b"
+        if regex.search(numbered_list_regex, lyrics):
+           return None
+        lyrics = regex.sub(bracketed_text_regex, '', lyrics)
+        lyrics = regex.sub(embed_regex, '', lyrics)
+        lyrics = regex.sub(parens_and_curly_brackets_regex, '', lyrics)
+        lyrics = regex.sub(standalone_quote_regex, ' ', lyrics)
+        lyrics = lyrics.lower() # make all lowercase for more accurate sets
+        if print_lyrics:
+            print("\nLYRICS AFTER PROCESSING:\n", lyrics)
+        return lyrics
 
 # Perform sentiment analysis on song lyrics
 def analyze_lyrics(song_name, artist_name):
@@ -73,7 +102,7 @@ def random_training_set(num_songs=1000):
 
     avg_sentiment_scores = tuple(avg_sentiment_scores)
     print(f"Average sentiment (Polarity, Subjectivity) over {num_songs} random songs:\n {avg_sentiment_scores}")
-    print("Number of errors:", error_count)
+    print(f"Number of errors: {error_count}")
     return avg_sentiment_scores
 
 
@@ -126,12 +155,13 @@ def analyze_playlist_average(playlist_id, num_trials=10):
     print(f"Average Polarity over {num_trials} trials:", average_polarity)
     print(f"Average Subjectivity over {num_trials} trials:", average_subjectivity)
 
-# Playlist URL for global top songs of 2022
-top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
-analyze_playlist_average(top_2022, 10)
-# analyze_playlist(top_2022)
+if __name__ == '__main__':
+    # Playlist URL for global top songs of 2022
+    top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
+    analyze_playlist_average(top_2022, 10)
+    # analyze_playlist(top_2022)
 
-# sent = analyze_lyrics("We'll Be Coming Back", "Calvin Harris")
-# print(sent)
+    # sent = analyze_lyrics("We'll Be Coming Back", "Calvin Harris")
+    # print(sent)
 
-# random_training_set(1000)
+    # random_training_set(1000)

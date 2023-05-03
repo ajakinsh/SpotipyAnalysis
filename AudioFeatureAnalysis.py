@@ -1,18 +1,11 @@
-# import random
-# import time
 import pandas as pd
 import json
 import spotipy
 import spotipy.oauth2 as oauth2
-# from spotipy_random import get_random
-# import lyricsgenius
-# from textblob import TextBlob
-# from langdetect import detect
 
-# Set up API credentials for Spotify and Genius
+# Set up API credentials for Spotify
 SPOTIFY_CLIENT_ID = '6695d089e5ac49379246228bcec06b2f'
 SPOTIFY_CLIENT_SECRET = 'ba1da5124c8a47348d4fb3108940fa3e'
-GENIUS_CLIENT_ACCESS_TOKEN = 'ViTixLIAigqJtrE4sBDgHRtiPReAnFLRy90Iq1U0WM5ahTifyA86ioflDGHzTP3_'
 
 # Set up authentication for the Spotify API
 credentials = oauth2.SpotifyClientCredentials(
@@ -21,9 +14,6 @@ credentials = oauth2.SpotifyClientCredentials(
 
 # Create a Spotify API instance
 spotify = spotipy.Spotify(client_credentials_manager=credentials)
-
-# Create a Genius API instance; Timeout increased to 20 seconds from default 5 sec (too short)
-# genius = lyricsgenius.Genius(GENIUS_CLIENT_ACCESS_TOKEN, timeout=20)
 
 def get_playlist_audio_features(playlist_id):
     playlist_data = []
@@ -59,6 +49,7 @@ def get_playlist_audio_features(playlist_id):
     print(json.dumps(avg_features))
     return avg_features
 
-print("Starting...")
-top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
-get_playlist_audio_features(top_2022)
+if __name__ == '__main__':
+    print("Starting...")
+    top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
+    get_playlist_audio_features(top_2022)

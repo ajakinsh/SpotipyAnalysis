@@ -1,3 +1,4 @@
+import re as regex
 import spotipy
 import spotipy.oauth2 as oauth2
 from spotipy_random import get_random
@@ -21,6 +22,45 @@ spotify = spotipy.Spotify(client_credentials_manager=credentials)
 
 # Create a Genius API instance; Timeout increased to 20 seconds from default 5 sec (too short)
 genius = lyricsgenius.Genius(GENIUS_CLIENT_ACCESS_TOKEN, timeout=20)
+
+# Define a function to retrieve song lyrics from Genius
+def get_lyrics(song_name, artist_name, print_lyrics=False):
+    song = genius.search_song(song_name, artist_name)
+    if song is None:
+        return None
+    else:
+        lyrics = song.lyrics
+        if print_lyrics:
+            print("\nLYRICS BEFORE PROCESSING:\n", lyrics)
+        lyrics = lyrics.splitlines()[1:]  # skip the first line (song and contributor info)
+        lyrics = "\n".join(lyrics) # put back into string
+
+        # Define regular expressions to match odd text that genius puts in lyrics
+        # Replace with empty string
+        # If search fails, a numbered list of potential songs will be returned
+        # These are not actual lyrics, so we must return None
+        # For example the label of [Chorus] or [Intro]
+        # Some odd lines like "270embed"
+        # Or the following example ad insert:
+        # # "see red hot chili peppers liveget tickets as low as $37you might also like"
+        # Also remove parentheses and curly brackets
+        # Substitute leftover single quotes for spaces
+
+        numbered_list_regex = r'^\d+\. "\w+" - \w+'
+        bracketed_text_regex = r'\[.*?\]'
+        embed_regex = r'(?i)see\s+(.+?)\s+liveget tickets as low as \$(\d+)you might also like|\d+embed'
+        parens_and_curly_brackets_regex = r'[\(\)\{\}]'
+        standalone_quote_regex = r"\b ' \b|\b \" \b"
+        if regex.search(numbered_list_regex, lyrics):
+           return None
+        lyrics = regex.sub(bracketed_text_regex, '', lyrics)
+        lyrics = regex.sub(embed_regex, '', lyrics)
+        lyrics = regex.sub(parens_and_curly_brackets_regex, '', lyrics)
+        lyrics = regex.sub(standalone_quote_regex, ' ', lyrics)
+        lyrics = lyrics.lower() # make all lowercase for more accurate sets
+        if print_lyrics:
+            print("\nLYRICS AFTER PROCESSING:\n", lyrics)
+        return lyrics
 
 def random_training_set(num_songs=1000):
     analyzed_count = 0
@@ -59,8 +99,7 @@ def analyze_song_sentiment(song_title, artist_name):
     try:
         # Set up NLTK sentiment analyzer
         sid = SentimentIntensityAnalyzer()
-        song = genius.search_song(song_title, artist_name)
-        lyrics = song.lyrics
+        lyrics = get_lyrics(song_title, artist_name)
         blob = TextBlob(lyrics)
         language = detect(lyrics)
         if language != "en":
@@ -117,7 +156,7 @@ def analyze_playlist_sentiment(playlist_id):
     print(f"Number of songs analyzed: {analyzed_count}")
     # for category in avg_sentiment_scores:
     #     print(f"Average {category.capitalize()} Score: {avg_sentiment_scores[category]}")
-    print("Average playlist sentiment:\n", avg_sentiment_scores)
+    print(f"Average playlist sentiment:\n {avg_sentiment_scores}")
     return avg_sentiment_scores
 
 def analyze_playlist_average(playlist_id, num_trials):
@@ -128,14 +167,14 @@ def analyze_playlist_average(playlist_id, num_trials):
         for category in sentiment:
             sentiment_totals[category] += sentiment[category]
     avg_sentiment_scores = {category: sentiment_totals[category] / num_trials for category in sentiment_totals}
-    print("Average playlist sentiment scores over", num_trials, "trials:")
-    print(avg_sentiment_scores)
+    print(f"Average playlist sentiment scores over {num_trials} trials:\n {avg_sentiment_scores}")
     return avg_sentiment_scores
 
-top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
-# analyze_playlist_sentiment(top_2022)
+if __name__ == '__main__':
+    top_2022 = "https://open.spotify.com/playlist/37i9dQZF1DX18jTM2l2fJY"
+    analyze_playlist_sentiment(top_2022)
 
-#average of the average
-analyze_playlist_average(top_2022, 10)
+    # average of the average
+    # analyze_playlist_average(top_2022, 10)
 
-# random_training_set(1000)
+    # random_training_set(1000)
