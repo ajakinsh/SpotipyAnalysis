@@ -22,12 +22,12 @@ spotify = spotipy.Spotify(client_credentials_manager=credentials)
 # Create a Genius API instance; Timeout increased to 20 seconds from default 5 sec (too short)
 genius = lyricsgenius.Genius(GENIUS_CLIENT_ACCESS_TOKEN, timeout=20)
 
-def random_training_set(num_trials):
+def random_training_set(num_songs=1000):
     analyzed_count = 0
     sentiment_totals = {'neg': 0, 'neu': 0, 'pos': 0, 'compound': 0}
     error_count = 0
 
-    for i in range(num_trials):
+    for i in range(num_songs):
         print(f'Song {i+1}:')
         random_pop_song_json: str = get_random(spotify, type="track")
 
@@ -46,13 +46,13 @@ def random_training_set(num_trials):
             error_count += 1
 
 
-    analyzed_count = num_trials - error_count
+    analyzed_count = num_songs - error_count
     if analyzed_count > 0:
         avg_sentiment_scores = {category: sentiment_totals[category] / analyzed_count for category in sentiment_totals}
     else:
         avg_sentiment_scores = {'neg': 0, 'neu': 0, 'pos': 0, 'compound': 0}
 
-    print("Average playlist sentiment:\n", avg_sentiment_scores)
+    print(f"Average sentiment over {num_songs} random songs:\n {avg_sentiment_scores}")
     return avg_sentiment_scores
 
 def analyze_song_sentiment(song_title, artist_name):
@@ -71,7 +71,7 @@ def analyze_song_sentiment(song_title, artist_name):
         sentiment_scores = sid.polarity_scores(lyrics)
 
         # Print results
-        print(f"Song: {song_title} by {artist_name}")
+        print(f"Song: \"{song_title}\" by {artist_name}")
         # print(f"Lyrics: {lyrics}")
         print(f"Sentiment Scores: {sentiment_scores}\n")
         return sentiment_scores
