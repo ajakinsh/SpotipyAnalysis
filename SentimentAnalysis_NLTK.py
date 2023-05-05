@@ -69,11 +69,11 @@ def random_training_set(num_songs=1000):
 
     for i in range(num_songs):
         print(f'Song {i+1}:')
-        random_pop_song_json: str = get_random(spotify, type="track")
+        random_song_json: str = get_random(spotify, type="track")
 
         # extract the name of the song and the name of the artist from the dictionary
-        song_name = random_pop_song_json['name']
-        artist_name = random_pop_song_json['artists'][0]['name']
+        song_name = random_song_json['name']
+        artist_name = random_song_json['artists'][0]['name']
 
         try:
             sentiment = analyze_song_sentiment(song_name, artist_name)
