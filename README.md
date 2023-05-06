@@ -3,7 +3,9 @@ Term Project for CIS 400 Social Media and Data Mining Course: Sentiment Analysis
 
 This project uses the following python packages: regex, spotipy, spotipy_random, lyricsgenius, textblob, langdetect, and NLTK 
 
-Run the command "pip install -r ./requirements.txt" to install these packages.
+Download "requirements.txt" then run the command "pip install -r ./requirements.txt" to install these packages.
+
+To use NLTK VADER, once the nltk package is installed, you may also need to run the command: "nltk.download('vader_lexicon')" or just "nltk.download()"
 
 The project is broken into 4 main Python files. Each one has commented lines in the main that can be run.
 
