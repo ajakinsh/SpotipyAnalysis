@@ -1,0 +1,7 @@
+langdetect==1.0.9
+lyricsgenius==3.0.1
+nltk==3.8.1
+regex==2022.10.31
+spotipy==2.22.1
+spotipy-random==0.0.3
+textblob==0.17.1
